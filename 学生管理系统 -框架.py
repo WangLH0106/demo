@@ -17,7 +17,7 @@ def print_menu():
     print('1.添加学生信息')
     print('2.删除学生信息')
     print('3.修改学生信息')
-    print('4.修改学生信息')
+    print('4.查询某个学生信息')
     print('5.查询所有学生信息')
     print('6.退出系统')
     print('=' * 30)
@@ -35,17 +35,29 @@ def add_stu_info():
     new_info['id'] = new_id
     new_info['name'] = new_name
     new_info['phone'] = new_phone
+
+    for one in stu_info:
+        if stu_info['id'] == new_id:
+            print('学生已经存在。')
+            return
+
     stu_info.append(new_info)
+    print('学生信息已经添加')
 
 
 # 删除学生信息
-'''
 def del_stu_info(student):
-    name = int(input('请输入要删除的姓名：')) - 1
-    for
-    del student[del_num]
-    print("删除成功！")
-'''
+    name = input('请输入要删除的姓名：')
+    flag = False
+    for i in stu_info:
+        if i['name'] == name:
+            stu_info.remove(i)
+            print(f'学生{name}，已删除。')
+            flag = True
+            break
+
+    if flag == False:
+        print(f'没有找到学生{name}。')
 
 # 修改学生信息
 def modify_stu_info():
@@ -67,12 +79,12 @@ def search_info():
     """查询学员"""
     # 1．输入要查找的学员姓名:
     search_name = input('请输入要查找的学员姓名:')
-    global stu_info
+
     # 2．判断学员是否存在:如果输入的姓名存在则显示这位学员信息，否则报错提示
     for i in stu_info:
-        if search_name == i[' name']:
+        if search_name == i['name']:
             print('查找到的学员信息如下: ------')
-            print(f"该学员的学号是{i['id']}，姓名是{i['name']}，手机号是{i['tel ']}")
+            print(f"该学员的学号是{i['id']}，姓名是{i['name']}，手机号是{i['phone']}")
             break
         else:
             print('该学员不存在')
@@ -81,11 +93,11 @@ def search_info():
 def show_stu_info():
     print('学生的信息如下：')
     print('=' * 30)
-    print('序号\t姓名\t性别\t手机号码')
+    print('序号\t姓名\t学号\t手机号码')
     i = 1
     for tempInfo in stu_info:
         print("%d\t%s\t%s\t%s" % (i, tempInfo['name'],
-               tempInfo['sex'], tempInfo['phone']))
+               tempInfo['id'], tempInfo['phone']))
         i += 1
 
 
@@ -100,8 +112,8 @@ def main():
             del_stu_info(stu_info)
         elif key == '3':  # 修改学生信息
             modify_stu_info()
-        elif key == '4':  # 查询所有学生信息
-            show_stu_info()
+        elif key == '4':  # 查询某个学生信息
+            search_info()
         elif key == '5':  # 查询所有学生信息
             show_stu_info()
         elif key == '6':
